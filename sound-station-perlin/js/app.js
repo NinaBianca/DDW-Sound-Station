@@ -6,18 +6,12 @@ let col1;
 let col2;
 let col3;
 let col4;
-let noiseMax = 5;
-let aoff = 0;
 
 let particles = [];
 let maxDistance = 100;
 let crack;
 let mask = [];
 let loopCount = 0;
-let angle = 0;
-let scalar = 50;
-let startX = windowW/2;
-let startY = windowH/2;
 let nFrames = 12000;
 
 function preload(){
@@ -44,11 +38,6 @@ function draw(){
     
     background(0, 0, 0, 10);
     let timing = (frameCount) / nFrames;
-    // push();
-    // var x = startX + scalar * cos(angle);
-    // var y = startY + scalar * sin(angle);
-    // translate(x, y);
-    // angle++;
     
     let vol = data.output.sounds.volume;
     let freq = data.output.sounds.frequency;
@@ -69,11 +58,14 @@ function draw(){
         col4 = color(138, 135, 235);
     }
     if (vol > .15) {
+        particles = [];
         clear();
         background(0);
         image(mask[loopCount], 0, 0, windowW, windowH);
+        push();
+        tint(255, 100);
         image(crack, 0, 0, windowW, windowH);
-        particles = [];
+        pop();
         return;
     }
 
@@ -111,19 +103,6 @@ function draw(){
         clear();
         background(0);
     }
-    
-    // if(freq > 1000) {
-    //     clear();
-    //     background(0);
-    //     if(loopCount % 2 == 0){
-    //         drawCross(color(random(0, 255), random(0, 255), random(0, 255), 150), random(-(windowW / 2), windowW), random(-(windowH / 2), windowH), 100, 25, 5, 10);
-    //         drawSquare(color(random(0, 255), random(0, 255), random(0, 255), 150), random(-(windowW / 2), windowW), random(-(windowH / 2), windowH), 75, 5, 10);
-    //     }
-    //     else {
-    //         drawCircle(color(random(0, 255), random(0, 255), random(0, 255), 150), random(-(windowW / 2), windowW), random(-(windowH / 2), windowH), 75, 5, 10);
-    //         drawRectangle(color(random(0, 255), random(0, 255), random(0, 255), 150), random(-(windowW / 2), windowW), random(-(windowH / 2), windowH), 100, 50, 5, 10);
-    //     }
-    // }
 
     image(mask[loopCount], 0, 0, windowW, windowH);
     if(loopCount < mask.length - 1){
