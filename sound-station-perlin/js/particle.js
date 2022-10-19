@@ -27,10 +27,12 @@ class Particle{
     update(freq) {
         this.vel.add(this.acc);
         for(var i = 0; i < freq; i++){
+            // Increase velocity based on frequency
             this.pos.add(this.vel);
         }
     }
     edges() {
+        // Remove particles that have moved off the canvas
         if(this.pos.x < -width/2 - 5 || this.pos.x > width/2 + 5 || this.pos.y < -height/2 - 5 || this.pos.y > height/2 + 5) {
             return true;
         } else {

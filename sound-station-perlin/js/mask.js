@@ -1,3 +1,4 @@
+// Example code to load in mask by HyperCulture
 let mask = [];
 let loopCount = 0;
 

@@ -42,22 +42,28 @@ function draw(){
     let vol = data.output.sounds.volume;
     let freq = data.output.sounds.frequency;
 
+    // Map volume for particle size
     let volume = map(vol, 0, 1, 1, 30);
+
+    // Map frequency for particle acceleration
     let frequency = map(freq, 100, 2000, 1, 20);
 
     if(vol >= .1){
+        // Red colors for load volume
         col1 = color(255, 0, 0);
         col2 = color(227, 11, 92);
         col3 = color(225, 49, 49);
         col4 = color(233, 30, 70);
     }
     else {
+        // HyperCulture style colors for normal volume
         col1 = color(0, 128, 201);
         col2 = color(194, 237, 46);
         col3 = color(69, 69, 158);
         col4 = color(138, 135, 235);
     }
     if (vol > .15) {
+        // Screen crack overlay for extreme volume
         particles = [];
         clear();
         background(0);
@@ -70,11 +76,13 @@ function draw(){
     }
 
     push();
+    // Rotate screen center
     translate(windowW / 2, windowH / 2);
     var x = 0 + 10 * cos(360 * timing);
     var y = 0 + 175 * sin(360 * timing);
     translate(x, y);
 
+    // Spawn new particles when noise is detected
     if(vol > .025){
         for(var i = 0; i < 4; i++){
             if(particles.length < 100){
@@ -84,6 +92,7 @@ function draw(){
         }
     }
 
+    // Display and move all existing particles
     for(var i = particles.length - 1; i >= 0; i--) {
         if(!particles[i].edges()) {
             particles[i].update(frequency);
@@ -93,17 +102,20 @@ function draw(){
         }
     }  
 
+    // Randomly spawn a particle every 30 seconds if no noise is detected
     if(particles.length == 0 && second() % 30 == 0){
         var p = new Particle(8);
         particles.push(p);
     }
     pop();
 
+    // Refresh background
     if(particles.length == 0){
         clear();
         background(0);
     }
 
+    // Loop through mask images
     image(mask[loopCount], 0, 0, windowW, windowH);
     if(loopCount < mask.length - 1){
         loopCount++;
