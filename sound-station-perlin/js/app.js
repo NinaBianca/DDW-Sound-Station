@@ -36,20 +36,20 @@ function setup(){
 function draw(){
     data.update();
     
-    background(0, 0, 0, 10);
+    background(244, 227, 226, 10);
     let timing = (frameCount) / nFrames;
     
     let vol = data.output.sounds.volume;
     let freq = data.output.sounds.frequency;
 
     // Map volume for particle size
-    let volume = map(vol, 0, 1, 1, 30);
+    let volume = map(vol, 0, 1, 1, 20);
 
     // Map frequency for particle acceleration
     let frequency = map(freq, 100, 2000, 1, 20);
 
-    if(vol >= .1){
-        // Red colors for load volume
+    if(vol >= .25){
+        // Red colors for loud volume
         col1 = color(255, 0, 0);
         col2 = color(227, 11, 92);
         col3 = color(225, 49, 49);
@@ -62,18 +62,19 @@ function draw(){
         col3 = color(69, 69, 158);
         col4 = color(138, 135, 235);
     }
-    if (vol > .15) {
-        // Screen crack overlay for extreme volume
-        particles = [];
-        clear();
-        background(0);
-        image(mask[loopCount], 0, 0, windowW, windowH);
-        push();
-        tint(255, 100);
-        image(crack, 0, 0, windowW, windowH);
-        pop();
-        return;
-    }
+
+    // Screen crack overlay for extreme volume - NOT CURRENTLY IN USE
+    // if (vol > .15) {
+    //     particles = [];
+    //     clear();
+    //     background(0);
+    //     image(mask[loopCount], 0, 0, windowW, windowH);
+    //     push();
+    //     tint(255, 100);
+    //     image(crack, 0, 0, windowW, windowH);
+    //     pop();
+    //     return;
+    // }
 
     push();
     // Rotate screen center
@@ -83,8 +84,8 @@ function draw(){
     translate(x, y);
 
     // Spawn new particles when noise is detected
-    if(vol > .025){
-        for(var i = 0; i < 4; i++){
+    if(vol > .09){
+        for(var i = 0; i < 3; i++){
             if(particles.length < 100){
                 var p = new Particle(volume);
                 particles.push(p);
@@ -109,11 +110,11 @@ function draw(){
     }
     pop();
 
-    // Refresh background
-    if(particles.length == 0){
-        clear();
-        background(0);
-    }
+    // Refresh background - NOT CURRENTLY IN USE
+    // if(particles.length == 0){
+    //     clear();
+    //     background(0);
+    // }
 
     // Loop through mask images
     image(mask[loopCount], 0, 0, windowW, windowH);

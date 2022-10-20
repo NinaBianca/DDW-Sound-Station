@@ -1,5 +1,6 @@
 class Particle{
     constructor(volume) {
+        // Create particle with scale based on volume
         this.pos = p5.Vector.random2D().mult(100);
         this.vel = createVector(0,0);
         this.acc = this.pos.copy().mult(random(0.0001, 0.00001));
